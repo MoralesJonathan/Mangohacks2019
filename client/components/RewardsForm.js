@@ -104,7 +104,8 @@ class LoginForm extends React.Component {
           placeholder="Enter password"
           secureTextEntry
         />
-        <Button title={this.props.buttonText} onPress={this.onLogin} primary />
+        <Button title="Login" onPress={this.onLogin} primary />
+        <Button title="Sign Up!" onPress={this.onLogin} primary />
       </View>
     );
   }

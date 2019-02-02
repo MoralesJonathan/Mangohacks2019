@@ -10,8 +10,9 @@ import {
 } from 'react-native';
 import { EightBaseAppProvider, AuthContext } from '@8base/app-provider';
 import { ReactNativeAuth0AuthClient } from '@8base/react-native-auth0-auth-client';
-import Keys from './keys.js';
-import { LoginForm } from './components/LoginForm';
+import Keys from './keys';
+import configValues from './config';
+import { LoginForm } from './components/RewardsForm';
 import { HomePage } from './components/HomePage';
 
 const AUTH0_CLIENT_ID = 'qGHZVu5CxY5klivm28OPLjopvsYp0baD';
@@ -28,7 +29,12 @@ const stringifySourceLocation = (sourceLocation = {}) =>
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { buttonText: '' };
+    this.state = {
+      buttonText: 'Login',
+      restaurantName: 'Restaurant',
+      colorScheme: '',
+      menuSyle: 1,
+    };
   }
   componentDidMount() {
     this.checkForSetup();
@@ -80,7 +86,7 @@ export default class App extends React.Component {
 
   initSetup = () => {
     console.log('INITIALIZING THE SETUP');
-    this._storeData('customCMSValues', { buttonValue: 'LOGIN' })
+    this._storeData('customCMSValues', configValues)
       .then(result =>
         this._storeData('setupComplete', { completed: true }).then(result => this.checkForSetup())
       )
@@ -93,7 +99,7 @@ export default class App extends React.Component {
 
   renderContent = auth => {
     if (!auth.isAuthorized) {
-      return <LoginForm auth={auth} buttonText={this.state.buttonText} />;
+      return <HomePage />;
     }
 
     return (
