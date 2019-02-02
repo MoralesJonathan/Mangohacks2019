@@ -11,7 +11,6 @@ import {
 import { EightBaseAppProvider, AuthContext } from '@8base/app-provider';
 import { ReactNativeAuth0AuthClient } from '@8base/react-native-auth0-auth-client';
 import Keys from './keys';
-import configValues from './config';
 import { LoginForm } from './components/RewardsForm';
 import { HomePage } from './components/HomePage';
 
@@ -36,66 +35,6 @@ export default class App extends React.Component {
       menuSyle: 1,
     };
   }
-  componentDidMount() {
-    this.checkForSetup();
-  }
-
-  _storeData = (key, values) => {
-    return new Promise(function(resolve, reject) {
-      AsyncStorage.setItem(key, JSON.stringify(values), error => {
-        !error ? resolve('Done') : reject(error);
-      });
-    });
-  };
-
-  _retrieveData = key => {
-    return new Promise(function(resolve, reject) {
-      AsyncStorage.getItem(key, (error, value) => {
-        error ? reject(error) : value != null ? resolve(value) : reject('empty');
-      });
-    });
-  };
-
-  checkForSetup = () => {
-    console.log('CHECKING FOR SETUP');
-    this._retrieveData('setupComplete')
-      .then(result => {
-        console.log('Setup found. Assigning custom content.');
-        this.assignCustomContent();
-      })
-      .catch(err => {
-        console.log('No setup found or error occured attempting to check for setup.');
-        console.log(err);
-        this.initSetup();
-      });
-  };
-
-  assignCustomContent = () => {
-    console.log('ASSINGING CUSTOM CONTENT');
-    this._retrieveData('customCMSValues')
-      .then(values => {
-        values = JSON.parse(values);
-        this.setState({ buttonText: values.buttonValue });
-      })
-      .catch(err => {
-        console.log('Could not read custom values.');
-        //Fallback to default values
-        console.log(err);
-      });
-  };
-
-  initSetup = () => {
-    console.log('INITIALIZING THE SETUP');
-    this._storeData('customCMSValues', configValues)
-      .then(result =>
-        this._storeData('setupComplete', { completed: true }).then(result => this.checkForSetup())
-      )
-      .catch(err => {
-        console.log('Could not set custom values.');
-        console.log(err);
-        //Fallback to default values
-      });
-  };
 
   renderContent = auth => {
     if (!auth.isAuthorized) {
