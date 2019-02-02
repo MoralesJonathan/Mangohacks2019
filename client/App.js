@@ -11,7 +11,7 @@ import { EightBaseAppProvider, AuthContext } from '@8base/app-provider';
 import { ReactNativeAuth0AuthClient } from '@8base/react-native-auth0-auth-client';
 import Keys from './keys';
 import { LoginForm } from './components/RewardsForm';
-import { HomePage } from './components/HomePage';
+import { MenuPage } from './components/MenuPage';
 
 const AUTH0_CLIENT_ID = 'qGHZVu5CxY5klivm28OPLjopvsYp0baD';
 const AUTH0_DOMAIN = 'https://auth.8base.com';
@@ -37,12 +37,12 @@ export default class App extends React.Component {
 
   renderContent = auth => {
     if (!auth.isAuthorized) {
-      return <HomePage />;
+      return <MenuPage />;
     }
 
     return (
       <React.Fragment>
-        <HomePage />
+        <MenuPage />
         <Button title="Logout" onPress={auth.purgeAuthState} />
       </React.Fragment>
     );
