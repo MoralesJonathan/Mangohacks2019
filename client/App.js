@@ -5,7 +5,6 @@ import {
   Button,
   KeyboardAvoidingView,
   ActivityIndicator,
-  AsyncStorage,
   Alert,
 } from 'react-native';
 import { EightBaseAppProvider, AuthContext } from '@8base/app-provider';
