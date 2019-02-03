@@ -1,9 +1,8 @@
 import React from 'react';
-import { TabBar } from './TabBar';
+import { TabBarNav } from './TabBar';
 import { StyleSheet, ScrollView, ActivityIndicator, Text, StatusBar, TabBarIOS, View } from 'react-native';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { CardCarousel } from './CardCarousel';
 
 const styles = StyleSheet.create({
   ScrollView: {
@@ -21,9 +20,8 @@ class MenuPage extends React.Component {
     return (
       <React.Fragment>
         <ScrollView contentContainerStyle={styles.ScrollView}>
-          <CardCarousel></CardCarousel>
+          <TabBarNav/>
         </ScrollView>
-        <TabBar/>
       </React.Fragment>
     );
   }

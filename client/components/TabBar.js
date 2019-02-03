@@ -1,31 +1,74 @@
 import React from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator, Text, StatusBar, TabBarIOS, View } from 'react-native';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
+import { StyleSheet, Text, Image, View, Dimensions } from 'react-native';
+import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
+import { CardCarousel } from './CardCarousel';
 
 const styles = StyleSheet.create({
-  TabBarIOS: {
-    display: 'flex', 
-    flexDirection: 'row'
-  }
+  scene: {
+    flex: 1,
+  },
 });
 
-class TabBar extends React.Component {
+const activeTabColor = '#307EF6';
+const inactiveTabColor = '#A4A4A4';
+
+const FindRoute = () => (
+  <CardCarousel />
+);
+const MenuRoute = () => (
+  <View style={[styles.scene, { backgroundColor: '#000000' }]} />
+);
+const HomeRoute = () => (
+  <View style={[styles.scene, { backgroundColor: '#ffffff' }]} />
+);
+const CartRoute = () => (
+  <View style={[styles.scene, { backgroundColor: '#f3f3f3' }]} />
+);
+const AccountRoute = () => (
+  <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />
+);
+
+class TabBarNav extends React.Component {
+  state = {
+    index: 0,
+    routes: [
+      { pos: 0, key: 'find', title: 'Find', icon: require('../assets/find.png') },
+      { pos: 1, key: 'menu', title: 'Menu', icon: require('../assets/menu.png') },
+      { pos: 2, key: 'home', title: 'Home', icon: require('../assets/home.png') },
+      { pos: 3, key: 'cart', title: 'Cart', icon: require('../assets/cart.png') },
+      { pos: 4, key: 'account', title: 'Account', icon: require('../assets/account.png') },
+    ],
+  };
+
+  _renderTabBar = props =>
+    <TabBar
+      style={{backgroundColor: '#F9F9F9', elevation: 0, borderColor: inactiveTabColor, borderTopWidth: 1, height:60}}
+      renderIcon={ ({route}) => <Image source={route.icon} style={{tintColor: route.pos == this.state.index ? activeTabColor : inactiveTabColor}} /> }
+      renderLabel={ ({route}) => <Text style={{ marginTop: 5, fontSize: 12, fontWeight: 'bold', color: route.pos == this.state.index ?  activeTabColor : inactiveTabColor }} >{route.title}</Text> }
+      {...props}
+      indicatorStyle={{backgroundColor: activeTabColor, height: 2.5}}
+    />
+
+  _tabs = {
+    find: FindRoute,
+    menu: MenuRoute,
+    home: HomeRoute,
+    cart: CartRoute,
+    account: AccountRoute,
+  }
 
   render() {
-
     return (
-      <View style={styles.TabBarIOS}>
-        <TabBarIOS style={{alignSelf: 'flex-end'}}>
-          <TabBarIOS.Item title="Find" icon={require('../assets/find.png')}></TabBarIOS.Item>
-          <TabBarIOS.Item title="Menu" icon={require('../assets/menu.png')}></TabBarIOS.Item>
-          <TabBarIOS.Item title="Home" icon={require('../assets/home.png')}></TabBarIOS.Item>
-          <TabBarIOS.Item title="Cart" icon={require('../assets/cart.png')}></TabBarIOS.Item>
-          <TabBarIOS.Item title="Account" icon={require('../assets/account.png')}></TabBarIOS.Item>
-        </TabBarIOS>
-      </View>
+      <TabView
+        navigationState={this.state}
+        renderScene={SceneMap(this._tabs)}
+        onIndexChange={index => this.setState({ index })}
+        initialLayout={{ height: 0, width: Dimensions.get('window').width }}
+        renderTabBar={this._renderTabBar}
+        tabBarPosition={'bottom'}
+      />
     );
   }
 }
 
-export { TabBar };
+export { TabBarNav };
