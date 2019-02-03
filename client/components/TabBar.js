@@ -4,6 +4,7 @@ import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import { CardCarousel } from './CardCarousel';
 import { RecentlyOrdered } from './RecentlyOrdered';
 import { MenuGrid } from './MenuGrid';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
     scene: {
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     carousel: {
-        flex: 4, 
+        flex: 1, 
         flexDirection:'row', 
         alignItems:'center', 
         justifyContent:'center' 

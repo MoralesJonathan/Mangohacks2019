@@ -14,11 +14,12 @@ class RecentlyOrdered extends React.Component {
 
     return (
         <RkCard>
-        <View rkCardHeader>
+        <View rkCardHeader style={{textAlign: "center", alignContent: "center", justifyContent:'center' }}>
             <Text>Recently Ordered</Text>
         </View>
-        <View rkCardContent>
-            <Text>Special Fried Rice</Text>
+        <Image rkCardImg source={{ uri: 'https://www.laylita.com/recipes/wp-content/uploads/2008/02/Empanada-recipe.jpg'}} />
+        <View rkCardContent rkCardHeader style={{textAlign: "center", alignContent: "center", justifyContent:'center' }}>
+            <Text>Empanada</Text>
         </View>
     </RkCard>
     );
