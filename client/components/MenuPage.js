@@ -19,9 +19,9 @@ class MenuPage extends React.Component {
 
     return (
       <React.Fragment>
-        <ScrollView contentContainerStyle={styles.ScrollView}>
+        <View style={styles.ScrollView}>
           <TabBarNav/>
-        </ScrollView>
+        </View>
       </React.Fragment>
     );
   }

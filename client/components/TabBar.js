@@ -2,24 +2,62 @@ import React from 'react';
 import { StyleSheet, Text, Image, View, Dimensions } from 'react-native';
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import { CardCarousel } from './CardCarousel';
+import { RecentlyOrdered } from './RecentlyOrdered';
+import { MenuGrid } from './MenuGrid';
 
 const styles = StyleSheet.create({
-  scene: {
-    flex: 1,
-  },
+    scene: {
+        flex: 1,
+    },
+    toolbar: {
+        backgroundColor: '#307EF6',
+        paddingTop: 30,
+        paddingBottom: 10,
+        flexDirection: 'row'
+    },
+    toolbarButton: {
+        width: 50,            //Step 2
+        color: '#fff',
+        textAlign: 'center'
+    },
+    toolbarTitle: {
+        color: '#fff',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        flex: 1
+    },
+    recentlyOrdered: {
+        flex: 1
+    },
+    carousel: {
+        flex: 4, 
+        flexDirection:'row', 
+        alignItems:'center', 
+        justifyContent:'center' 
+    }
 });
 
 const activeTabColor = '#307EF6';
 const inactiveTabColor = '#A4A4A4';
 
 const FindRoute = () => (
-  <CardCarousel />
+    <View style={[styles.scene, { backgroundColor: '#ffffff' }]} />
 );
 const MenuRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#000000' }]} />
+  <React.Fragment>
+      <MenuGrid />
+  </React.Fragment>
 );
 const HomeRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#ffffff' }]} />
+    <React.Fragment>
+        <View style={styles.toolbar}><Text style={styles.toolbarTitle}>Example Restaurant</Text></View>
+        <View style={styles.carousel}>
+            <CardCarousel />
+        </View>
+        <View style={styles.recentlyOrdered}>
+            <RecentlyOrdered />
+        </View>
+    </React.Fragment>
 );
 const CartRoute = () => (
   <View style={[styles.scene, { backgroundColor: '#f3f3f3' }]} />
@@ -30,7 +68,7 @@ const AccountRoute = () => (
 
 class TabBarNav extends React.Component {
   state = {
-    index: 0,
+    index: 2,
     routes: [
       { pos: 0, key: 'find', title: 'Find', icon: require('../assets/find.png') },
       { pos: 1, key: 'menu', title: 'Menu', icon: require('../assets/menu.png') },
